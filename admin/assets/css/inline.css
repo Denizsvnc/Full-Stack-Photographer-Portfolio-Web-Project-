@@ -1,0 +1,282 @@
+/* Admin Panel Inline CSS */
+
+/* Bulk Delete Form - Hidden by default */
+#bulk-delete-form {
+	display: none;
+}
+
+/* Remove Field Button - Hidden by default */
+.remove-field-btn {
+	display: none;
+}
+
+.remove-field-btn.show {
+	display: inline-flex;
+}
+
+/* Table Header Width */
+.admin-table-checkbox-header {
+	width: 50px;
+}
+
+/* Details Summary */
+details summary {
+	display: block;
+	outline: none;
+}
+
+/* SVG Icon Size Override */
+.admin-svg-icon {
+	width: 16px;
+	height: 16px;
+}
+
+/* Notification Styles */
+.admin-notification {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	z-index: 50;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+.admin-notification.fade-out {
+	opacity: 0;
+}
+
+/* Page Layout Styles - Grid Container */
+#grid-container {
+	position: relative;
+	min-height: 400px;
+	background: white !important;
+	background-color: white !important;
+	border: 1px solid #e5e7eb !important;
+	border-radius: 0.5rem !important;
+	padding: 20px !important;
+}
+
+.dark #grid-container {
+	background: rgba(255, 255, 255, 0.03) !important;
+	background-color: rgba(255, 255, 255, 0.03) !important;
+	border-color: #374151 !important;
+}
+
+#grid-container.grid-stack {
+	background: white !important;
+	background-color: white !important;
+	min-height: 400px !important;
+	border: 1px solid #e5e7eb !important;
+	border-radius: 0.5rem !important;
+	padding: 20px !important;
+}
+
+.dark #grid-container.grid-stack {
+	background: rgba(255, 255, 255, 0.03) !important;
+	background-color: rgba(255, 255, 255, 0.03) !important;
+	border-color: #374151 !important;
+}
+
+/* GridStack Styles - Override GridStack's default blue background */
+.grid-stack {
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+/* Override any GridStack blue backgrounds on all child elements except content */
+.grid-stack-item {
+	cursor: move;
+	overflow: visible !important;
+	position: relative;
+	z-index: 1;
+	background-color: transparent !important;
+	background: transparent !important;
+}
+
+.grid-stack-item.ui-draggable-dragging {
+	z-index: 1000;
+}
+
+.grid-stack-item .ui-resizable-handle {
+	z-index: 10;
+}
+
+.grid-stack-item > .ui-resizable-handle {
+	overflow: visible !important;
+}
+
+.grid-stack-item-content {
+	background: white !important;
+	background-color: white !important;
+	border: 1px solid #e5e7eb !important;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.2s;
+	overflow: hidden !important;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+.grid-stack-item-content:hover {
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.grid-stack-item.ui-draggable-dragging .grid-stack-item-content {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .grid-stack-item-content {
+	background: rgba(255, 255, 255, 0.03) !important;
+	background-color: rgba(255, 255, 255, 0.03) !important;
+	border-color: #374151;
+}
+
+.grid-stack-item-content img {
+	width: 100%;
+	height: auto;
+	border-radius: 0.25rem;
+	margin-bottom: 0.5rem;
+	display: block !important;
+	object-fit: cover;
+	max-width: 100%;
+}
+
+.grid-stack-item-content h4 {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #111827;
+	margin-bottom: 0.25rem;
+	display: block !important;
+	visibility: visible !important;
+}
+
+.dark .grid-stack-item-content h4 {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.grid-stack-item-content .category-badge {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	background: #465fff;
+	color: white;
+	border-radius: 9999px;
+	font-size: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.grid-stack-item-content .project-id {
+	font-size: 0.75rem;
+	color: #6b7280;
+	margin-top: 0.5rem;
+}
+
+.dark .grid-stack-item-content .project-id {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.ui-resizable-handle {
+	background: #465fff;
+	border-radius: 2px;
+}
+
+.ui-resizable-se {
+	width: 20px;
+	height: 20px;
+	right: 0;
+	bottom: 0;
+	background: #465fff;
+	border-radius: 0 0 0.5rem 0;
+}
+
+.ui-resizable-e {
+	width: 4px;
+	right: 0;
+	background: #465fff;
+}
+
+.ui-resizable-s {
+	height: 4px;
+	bottom: 0;
+	background: #465fff;
+}
+
+/* Save Layout Button */
+#save-layout {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 1000;
+	padding: 12px 24px;
+	border: none;
+	border-radius: 6px;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	transition: all 0.2s;
+}
+
+#save-layout:not(:disabled) {
+	background: #465fff;
+}
+
+#save-layout:not(:disabled):hover {
+	background: #3a4fdf;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+#save-layout:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background: #465fff;
+}
+
+/* Fix for Margin Settings section - use specific ID to avoid Tailwind conflicts */
+#margin-settings-container {
+	position: relative;
+	z-index: 1;
+	background: white !important;
+	background-color: white !important;
+	overflow: visible !important;
+}
+
+.dark #margin-settings-container {
+	background: rgba(255, 255, 255, 0.03) !important;
+	background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+#margin-settings-container > div {
+	position: relative;
+	z-index: 2;
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+#margin-settings-container form {
+	position: relative;
+	z-index: 3;
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+#margin-settings-container select,
+#margin-settings-container button,
+#margin-settings-container label {
+	position: relative;
+	z-index: 4;
+}
+
+/* Ensure grid items don't have scrollbars */
+.grid-stack-item-content * {
+	max-width: 100%;
+}

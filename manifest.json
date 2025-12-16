@@ -1,0 +1,50 @@
+{
+    "name": "Kürşad Karakuş Digital Portfolio",
+    "short_name": "Kürşad Karakuş",
+    "description": "Kürşad Karakuş'un dijital portfolyosu. Editorial, advertising, film ve cover çalışmaları.",
+    "start_url": "./index.php",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1a1a1a",
+    "orientation": "portrait-primary",
+    "scope": "./",
+    "icons": [
+        {
+            "src": "./favicon.ico",
+            "sizes": "48x48",
+            "type": "image/x-icon"
+        }
+    ],
+    "categories": [
+        "photography",
+        "portfolio",
+        "art"
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "Film",
+            "short_name": "Film",
+            "description": "Film ve video çalışmaları",
+            "url": "./film.php",
+            "icons": [
+                {
+                    "src": "./favicon.ico",
+                    "sizes": "48x48"
+                }
+            ]
+        },
+        {
+            "name": "Cover",
+            "short_name": "Cover",
+            "description": "Kapak çalışmaları",
+            "url": "./cover.php",
+            "icons": [
+                {
+                    "src": "./favicon.ico",
+                    "sizes": "48x48"
+                }
+            ]
+        }
+    ]
+}
