@@ -4,6 +4,7 @@
 
 ### Yöntem 1: Otomatik Kurulum (Önerilen)
 Tarayıcınızda şu adresi açın:
+(geliştirme aşamasında olduğum için dosya şuanda yok)
 ```
 http://localhost/kursad/setup.php
 ```
