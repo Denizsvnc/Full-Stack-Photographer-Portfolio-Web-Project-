@@ -1,0 +1,109 @@
+# Kürşad Karakuş Digital Portfolio - Git Ignore File
+
+# ===================================
+# Environment & Configuration
+# ===================================
+.env
+.env.local
+.env.*.local
+config.php
+db_config.php
+
+# ===================================
+# Uploaded Files & Media
+# ===================================
+images/*
+!images/.gitkeep
+uploads/*
+!uploads/.gitkeep
+media/*
+!media/.gitkeep
+
+# ===================================
+# Cache & Temporary Files
+# ===================================
+cache/*
+!cache/.gitkeep
+tmp/*
+!tmp/.gitkeep
+*.log
+*.cache
+*.tmp
+
+# ===================================
+# IDE & Editor Files
+# ===================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===================================
+# Dependency Directories
+# ===================================
+node_modules/
+vendor/
+bower_components/
+
+# ===================================
+# Build & Distribution
+# ===================================
+dist/
+build/
+*.min.js
+*.min.css
+!js/vendor/*.min.js
+!css/vendor/*.min.css
+
+# ===================================
+# Backup Files
+# ===================================
+*.bak
+*.backup
+*.old
+*_backup
+*_old
+backup/
+
+# ===================================
+# Database Dumps
+# ===================================
+*.sql
+*.sqlite
+*.db
+
+# ===================================
+# OS Generated Files
+# ===================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===================================
+# PHP Specific
+# ===================================
+composer.phar
+composer.lock
+.phpunit.result.cache
+
+# ===================================
+# Service Worker & PWA
+# ===================================
+# Keep sw.js and manifest.json in version control
+# !sw.js
+# !manifest.json
+
+# ===================================
+# Custom Project Files
+# ===================================
+# Uncomment if you want to ignore specific files
+# admin/test_upload.php
+# admin/debug_uploads.php

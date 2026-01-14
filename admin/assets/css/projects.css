@@ -1,0 +1,19 @@
+/* Gelişmiş Ayarlar butonu için özel stiller */
+details summary {
+    display: block !important;
+    list-style: none !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+details summary::-webkit-details-marker {
+    display: none !important;
+}
+
+details summary::marker {
+    display: none !important;
+}
+
+details[open] summary {
+    margin-bottom: 1rem;
+}

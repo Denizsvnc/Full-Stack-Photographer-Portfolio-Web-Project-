@@ -7,6 +7,20 @@ $id = $_GET['id'] ?? null;
 $message = '';
 $messageType = '';
 
+// Veritabanında en_name ve en_description alanları yoksa ekle
+try {
+    $stmt = $pdo->query("SHOW COLUMNS FROM categories LIKE 'en_name'");
+    if ($stmt->rowCount() == 0) {
+        $pdo->exec("ALTER TABLE categories ADD COLUMN en_name VARCHAR(255) DEFAULT NULL AFTER name");
+    }
+    $stmt = $pdo->query("SHOW COLUMNS FROM categories LIKE 'en_description'");
+    if ($stmt->rowCount() == 0) {
+        $pdo->exec("ALTER TABLE categories ADD COLUMN en_description TEXT DEFAULT NULL AFTER description");
+    }
+} catch(PDOException $e) {
+    // Tablo henüz yoksa veya başka bir hata varsa sessizce geç
+}
+
 // Silme işlemi
 if ($action === 'delete' && $id) {
     try {
@@ -41,8 +55,10 @@ if ($action === 'delete' && $id) {
 // Form gönderimi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
+    $en_name = trim($_POST['en_name'] ?? '');
     $slug = trim($_POST['slug'] ?? '');
     $description = trim($_POST['description'] ?? '');
+    $en_description = trim($_POST['en_description'] ?? '');
     $display_order = intval($_POST['display_order'] ?? 0);
     
     // Slug oluştur (eğer boşsa name'den)
@@ -54,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($action === 'add') {
         try {
-            $stmt = $pdo->prepare("INSERT INTO categories (name, slug, description, display_order) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$name, $slug, $description ?: null, $display_order]);
+            $stmt = $pdo->prepare("INSERT INTO categories (name, en_name, slug, description, en_description, display_order) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$name, $en_name ?: null, $slug, $description ?: null, $en_description ?: null, $display_order]);
             
             // Manifest.json'u güncelle
             require_once dirname(__DIR__) . '/config.php';
@@ -85,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $updateProjects->execute([$slug, $id]);
             }
             
-            $stmt = $pdo->prepare("UPDATE categories SET name = ?, slug = ?, description = ?, display_order = ? WHERE id = ?");
-            $stmt->execute([$name, $slug, $description ?: null, $display_order, $id]);
+            $stmt = $pdo->prepare("UPDATE categories SET name = ?, en_name = ?, slug = ?, description = ?, en_description = ?, display_order = ? WHERE id = ?");
+            $stmt->execute([$name, $en_name ?: null, $slug, $description ?: null, $en_description ?: null, $display_order, $id]);
             
             // Manifest.json'u güncelle
             require_once dirname(__DIR__) . '/config.php';
@@ -242,20 +258,40 @@ if ($action === 'list') {
         </div>
         <div class="space-y-6 border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
         <form method="POST" class="space-y-6">
-            <div>
-                <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Kategori Adı <span class="text-error-500">*</span></label>
-                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($category['name'] ?? ''); ?>" required class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
+            <!-- Türkçe Bilgiler -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h4 class="mb-4 text-sm font-semibold text-gray-800 dark:text-white/90">🇹🇷 Türkçe</h4>
+                <div class="space-y-4">
+                    <div>
+                        <label for="name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Kategori Adı <span class="text-error-500">*</span></label>
+                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($category['name'] ?? ''); ?>" required class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
+                    </div>
+                    <div>
+                        <label for="description" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Açıklama</label>
+                        <textarea id="description" name="description" rows="2" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"><?php echo htmlspecialchars($category['description'] ?? ''); ?></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- İngilizce Bilgiler -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h4 class="mb-4 text-sm font-semibold text-gray-800 dark:text-white/90">🇬🇧 English</h4>
+                <div class="space-y-4">
+                    <div>
+                        <label for="en_name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Category Name</label>
+                        <input type="text" id="en_name" name="en_name" value="<?php echo htmlspecialchars($category['en_name'] ?? ''); ?>" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" placeholder="English name (optional)">
+                    </div>
+                    <div>
+                        <label for="en_description" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Description</label>
+                        <textarea id="en_description" name="en_description" rows="2" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" placeholder="English description (optional)"><?php echo htmlspecialchars($category['en_description'] ?? ''); ?></textarea>
+                    </div>
+                </div>
             </div>
             
             <div>
                 <label for="slug" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Slug <span class="text-error-500">*</span></label>
                 <input type="text" id="slug" name="slug" value="<?php echo htmlspecialchars($category['slug'] ?? ''); ?>" required pattern="[a-z0-9-]+" title="Sadece küçük harf, rakam ve tire kullanılabilir" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
                 <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-400">URL'de kullanılacak kısa ad (örn: editorial, advertising)</p>
-            </div>
-            
-            <div>
-                <label for="description" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Açıklama</label>
-                <textarea id="description" name="description" rows="3" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"><?php echo htmlspecialchars($category['description'] ?? ''); ?></textarea>
             </div>
             
             <div>

@@ -23,10 +23,10 @@
     "screenshots": [],
     "shortcuts": [
         {
-            "name": "Film",
-            "short_name": "Film",
-            "description": "Film ve video çalışmaları",
-            "url": "./film.php",
+            "name": "Editorial",
+            "short_name": "Editorial",
+            "description": "Editorial çalışmalar",
+            "url": "./editorial.php",
             "icons": [
                 {
                     "src": "./favicon.ico",
@@ -35,10 +35,10 @@
             ]
         },
         {
-            "name": "Cover",
-            "short_name": "Cover",
-            "description": "Kapak çalışmaları",
-            "url": "./cover.php",
+            "name": "Film",
+            "short_name": "Film",
+            "description": "Film ve video çalışmaları",
+            "url": "./film.php",
             "icons": [
                 {
                     "src": "./favicon.ico",
